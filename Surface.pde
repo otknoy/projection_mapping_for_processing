@@ -3,22 +3,21 @@ import java.awt.Point;
 public class Surface {
 
   private Point[] v;
+  private PImage img;
 
 
-  public Surface(Point v0, Point v1, Point v2, Point v3) {
+  public Surface(PImage img, Point v0, Point v1, Point v2, Point v3) {
+    this.img = img;
     this.v = new Point[]{v0, v1, v2, v3};
   }
   
-  public Surface(int x, int y, int width, int height) {
-    Point[] v = new Point[4];
-    v[0] = new Point(x, y);
-    v[1] = new Point(x+width, y);
-    v[2] = new Point(x+width, y+height);
-    v[3] = new Point(x, y+height);
-    this.v = v;
+  public Surface(PImage img, int x, int y, int width, int height) {
+    this(img,
+         new Point(x, y), new Point(x+width, y),
+         new Point(x+width, y+height), new Point(x, y+height));
   }
 
-  public void draw(PImage img) {
+  public void draw() {
     noStroke();
     beginShape(QUAD_STRIP);
     texture(img);

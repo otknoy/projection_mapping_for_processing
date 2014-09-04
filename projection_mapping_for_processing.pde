@@ -21,7 +21,8 @@ void setup() {
   
   surfaces = new Surface[3];
   for (int i = 0; i < surfaces.length; i++) {
-    surfaces[i] = new Surface((width*i)/(surfaces.length+1), (height*i)/(surfaces.length+1),
+    surfaces[i] = new Surface(img,
+                              (width*i)/(surfaces.length+1), (height*i)/(surfaces.length+1),
                               width/(surfaces.length+1), height/(surfaces.length+1));
   }
   
@@ -31,9 +32,9 @@ void setup() {
 void draw() {
   background(0);
 
-  surfaces[0].draw(img);
-  surfaces[1].draw(img);
-  surfaces[2].draw(img);
+  surfaces[0].draw();
+  surfaces[1].draw();
+  surfaces[2].draw();
 
   if (adjustMode) adjustMode();
 }
