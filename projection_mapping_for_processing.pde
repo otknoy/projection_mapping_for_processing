@@ -21,9 +21,12 @@ void setup() {
   
   surfaces = new Surface[3];
   for (int i = 0; i < surfaces.length; i++) {
-    surfaces[i] = new Surface(img,
-                              (width*i)/(surfaces.length+1), (height*i)/(surfaces.length+1),
-                              width/(surfaces.length+1), height/(surfaces.length+1));
+    int x = (width  / surfaces.length) * i;
+    int y = (height / surfaces.length) * i;
+    int w = width  / surfaces.length;
+    int h = height / surfaces.length;
+
+    surfaces[i] = new Surface(img, x, y, w, h);
   }
   
   selectedSurfaceIndex = 0;
@@ -32,17 +35,19 @@ void setup() {
 void draw() {
   background(0);
 
-  surfaces[0].draw();
-  surfaces[1].draw();
-  surfaces[2].draw();
+  for (Surface surface : surfaces) {
+    surface.draw();
+  }
 
   if (adjustMode) adjustMode();
 }
+
 
 void movieEvent(Movie m) { m.read(); }
 
 void mousePressed() {
   if (!adjustMode) return;
+
   double minDist = Double.MAX_VALUE;
   Surface surface = surfaces[selectedSurfaceIndex];
   for (Point p : surface.getVertices()) {
@@ -68,6 +73,7 @@ void keyPressed() {
     selectedSurfaceIndex = (surfaces.length + selectedSurfaceIndex-1) % surfaces.length;
   }
 }
+
 
 void adjustMode() {
   for (Surface surface : surfaces) {
